@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="கொங்கு வேட்டுவ கவுண்டர் — வில் அம்பு சின்னம்">
+  <!-- Roundel: white centre, green ring (flag) -->
+  <circle cx="32" cy="32" r="30" fill="#ffffff"/>
+  <circle cx="32" cy="32" r="30" fill="none" stroke="#128a3c" stroke-width="3.5"/>
+  <!-- Bow + arrow (flag red) -->
+  <g fill="none" stroke="#d6202a" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+    <!-- bow: arc opening to the right -->
+    <path d="M23 15 Q10 32 23 49"/>
+    <!-- bowstring -->
+    <path d="M23 15 L23 49"/>
+    <!-- arrow shaft: lower-left to upper-right -->
+    <path d="M17 47 L47 17"/>
+    <!-- arrow nock feathers -->
+    <path d="M17 47 L14 44 M17 47 L20 50"/>
+  </g>
+  <!-- arrowhead -->
+  <path d="M50 14 L40.5 16 L48 23.5 Z" fill="#d6202a"/>
+</svg>

@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(perl --version)",
+      "Bash(python -)",
+      "Bash(node --check assets/js/main.js)",
+      "Bash(python -m http.server 8791)",
+      "Bash(pkill -f \"http.server 8791\")",
+      "Bash(PYTHONIOENCODING=utf-8 python -)",
+      "Bash(node --check assets/js/data.js)",
+      "Bash(mv gallery/g-7.svg about-community.svg)",
+      "Bash(mv gallery/g-3.svg matrimony.svg)",
+      "Bash(rm -rvf gallery events personalities temples history kulams icons team ../videos)"
+    ]
+  }
+}

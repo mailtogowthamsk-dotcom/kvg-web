@@ -1,0 +1,10 @@
+# robots.txt — கொங்கு வேட்டுவ கவுண்டர் சமூகம் (example)
+# Replace https://konguvettuvagounder.com/ with your real domain before publishing.
+
+User-agent: *
+Allow: /
+
+# Block nothing sensitive by default. Add Disallow rules as needed, e.g.:
+# Disallow: /admin/
+
+Sitemap: https://konguvettuvagounder.com/sitemap.xml
