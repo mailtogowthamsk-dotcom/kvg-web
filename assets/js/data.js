@@ -72,6 +72,17 @@ function resolveWebsiteContactEndpoint() {
   return "https://www.infosensetechnologies.com/digitalhouse/backend/api/website/contact";
 }
 
+/** Same public legal API the mobile app uses (published documents only). */
+function resolveLegalApiBase() {
+  try {
+    const h = typeof location !== "undefined" ? location.hostname : "";
+    if (!h || h === "localhost" || h === "127.0.0.1") {
+      return "http://localhost:4000/api/legal";
+    }
+  } catch (_) { /* ignore */ }
+  return "https://www.infosensetechnologies.com/digitalhouse/backend/api/legal";
+}
+
 const contactConfig = {
   email:      "contact@konguvettuvagounder.com",
   hoursTa:    "திங்கள் – சனி, காலை 10:00 – மாலை 6:00",
@@ -81,5 +92,6 @@ const contactConfig = {
 /* Expose (for clarity in browser console / future modules) */
 window.CommunityData = {
   communityStats,
-  appFeatures, appScreens, testimonials, appConfig, contactConfig
+  appFeatures, appScreens, testimonials, appConfig, contactConfig,
+  legalApiBase: resolveLegalApiBase()
 };
