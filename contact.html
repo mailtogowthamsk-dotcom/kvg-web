@@ -25,12 +25,7 @@
   <header class="site-header">
     <div class="topbar">
       <div class="container">
-        <div class="topbar__left">📍 தமிழ்நாடு, இந்தியா &nbsp;•&nbsp; ✉️ info@konguvettuvagounder.com</div>
-        <div class="socials">
-          <a href="#" aria-label="Facebook">Facebook</a>
-          <a href="#" aria-label="YouTube">YouTube</a>
-          <a href="#" aria-label="WhatsApp">WhatsApp</a>
-        </div>
+        <div class="topbar__left">✉️ <a href="mailto:contact@konguvettuvagounder.com">contact@konguvettuvagounder.com</a></div>
       </div>
     </div>
     <nav class="container navbar" aria-label="முதன்மை வழிசெலுத்தல்">
@@ -79,8 +74,11 @@
               <div class="form-grid">
                 <div class="field"><label for="cf-name">பெயர் <span class="req">*</span></label><input id="cf-name" name="name" type="text" required autocomplete="name"><div class="error-msg"></div></div>
                 <div class="field"><label for="cf-email">மின்னஞ்சல் <span class="req">*</span></label><input id="cf-email" name="email" type="email" required autocomplete="email"><div class="error-msg"></div></div>
-                <div class="field"><label for="cf-phone">தொலைபேசி</label><input id="cf-phone" name="phone" type="tel" autocomplete="tel"><div class="error-msg"></div></div>
-                <div class="field"><label for="cf-subject">தலைப்பு <span class="req">*</span></label>
+                <div class="field full" aria-hidden="true" style="position:absolute;left:-9999px;height:0;overflow:hidden;">
+                  <label for="cf-company">Company</label>
+                  <input id="cf-company" name="company" type="text" tabindex="-1" autocomplete="off">
+                </div>
+                <div class="field full"><label for="cf-subject">தலைப்பு <span class="req">*</span></label>
                   <select id="cf-subject" name="subject" required>
                     <option value="">— தேர்வு செய்யவும் —</option>
                     <option>பொது விசாரணை</option>
@@ -98,7 +96,8 @@
                   <div class="error-msg"></div>
                 </div>
               </div>
-              <p class="form-success" hidden><span class="badge badge--verified">✓ நன்றி! உங்கள் செய்தி பதிவு செய்யப்பட்டது (மாதிரி).</span></p>
+              <p class="form-success" hidden><span class="badge badge--verified">✓ நன்றி! உங்கள் செய்தி அனுப்பப்பட்டது. விரைவில் தொடர்புகொள்வோம்.</span></p>
+              <p class="form-error" hidden style="color:var(--danger);margin:10px 0;"></p>
               <button class="btn btn-primary" type="submit">அனுப்பு</button>
             </form>
           </div>
@@ -106,23 +105,8 @@
           <div class="reveal">
             <h2>தொடர்பு விவரங்கள்</h2>
             <div class="feature" style="margin-bottom:14px;">
-              <p><strong>📍 முகவரி:</strong> <span id="cAddress">ஈரோடு மாவட்டம்</span></p>
-              <p><strong>📞 தொலைபேசி:</strong> <span id="cPhone">[+91 XXXXXXXXXX]</span></p>
-              <p><strong>✉️ மின்னஞ்சல்:</strong> <span id="cEmail">info@konguvettuvagounder.com</span></p>
+              <p><strong>✉️ மின்னஞ்சல்:</strong> <a id="cEmail" href="mailto:contact@konguvettuvagounder.com">contact@konguvettuvagounder.com</a></p>
               <p><strong>🕐 நேரம்:</strong> <span id="cHours">திங்கள் – சனி, காலை 10:00 – மாலை 6:00</span></p>
-            </div>
-            <div class="feature" style="margin-bottom:14px;">
-              <h4>சமூக ஊடகம் & WhatsApp</h4>
-              <div class="tag-row">
-                <a class="btn btn-outline btn-sm" href="#">Facebook</a>
-                <a class="btn btn-outline btn-sm" href="#">YouTube</a>
-                <a class="btn btn-outline btn-sm" href="#">Instagram</a>
-                <a class="btn btn-gold btn-sm" href="#">WhatsApp சமூகம் (இடம்)</a>
-              </div>
-            </div>
-            <div class="feature">
-              <h4>வரைபடம் (இட ஒதுக்கீடு)</h4>
-              <div class="aspect-16-9 rounded" style="background:var(--beige);display:grid;place-items:center;color:var(--muted);">🗺️ Google Maps embed இங்கே இணைக்கவும்</div>
             </div>
           </div>
         </div>
@@ -137,12 +121,6 @@
           <span class="brand__text"><strong style="color:#fff">கொங்கு வேட்டுவ கவுண்டர்</strong><span>சமூக இணையதளம்</span></span>
         </a>
         <p>சமூக வரலாறு, பண்பாடு, செய்திகள் மற்றும் உறவுகளை இணைக்கும் தளம்.</p>
-        <div class="footer-socials">
-          <a href="#" aria-label="Facebook">f</a>
-          <a href="#" aria-label="YouTube">▶</a>
-          <a href="#" aria-label="WhatsApp">W</a>
-          <a href="#" aria-label="Instagram">◎</a>
-        </div>
       </div>
       <div class="footer-col">
         <h4>விரைவு இணைப்புகள்</h4>
@@ -162,9 +140,7 @@
       <div class="footer-col">
         <h4>தொடர்பு</h4>
         <ul>
-          <li>📍 ஈரோடு மாவட்டம்</li>
-          <li>📞 [+91 XXXXXXXXXX]</li>
-          <li>✉️ [info@konguvettuvagounder.com]</li>
+          <li>✉️ <a href="mailto:contact@konguvettuvagounder.com">contact@konguvettuvagounder.com</a></li>
         </ul>
         <h4 style="margin-top:16px">செய்திமடல்</h4>
         <form class="news-sub" onsubmit="event.preventDefault(); this.reset(); this.querySelector('button').textContent='✓';">

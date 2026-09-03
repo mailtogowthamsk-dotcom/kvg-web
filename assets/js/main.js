@@ -382,8 +382,12 @@
   function renderContactConfig() {
     const c = D.contactConfig; if (!c) return;
     const set = (sel, val) => { const el = $(sel); if (el && val) el.textContent = val; };
-    set("#cAddress", c.addressTa); set("#cPhone", c.phone);
-    set("#cEmail", c.email); set("#cHours", c.hoursTa);
+    const emailEl = $("#cEmail");
+    if (emailEl && c.email) {
+      emailEl.textContent = c.email;
+      if (emailEl.tagName === "A") emailEl.href = "mailto:" + c.email;
+    }
+    set("#cHours", c.hoursTa);
     const form = $("#contactForm");
     if (form && c.formEndpoint) form.dataset.endpoint = c.formEndpoint;
   }
@@ -438,7 +442,7 @@
   function setupForms() {
     $$("form[data-validate]").forEach(form => {
       form.setAttribute("novalidate", "");
-      form.addEventListener("submit", e => {
+      form.addEventListener("submit", async e => {
         e.preventDefault();
         let ok = true;
         $$("[required]", form).forEach(field => {
@@ -453,15 +457,65 @@
           if (err) err.textContent = msg;
           if (msg) ok = false;
         });
-        if (ok) {
-          const success = $(".form-success", form.parentElement) || $(".form-success", form);
-          const endpoint = form.dataset.endpoint;
-          // Prototype: DO NOT submit to a real endpoint unless configured.
-          if (endpoint) {
-            // fetch(endpoint, { method:'POST', body:new FormData(form) }) ... connect later
+        if (!ok) return;
+
+        const successEl = $(".form-success", form.parentElement) || $(".form-success", form);
+        const errorEl = $(".form-error", form.parentElement) || $(".form-error", form);
+        const endpoint = form.dataset.endpoint;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const prevLabel = submitBtn ? submitBtn.textContent : "";
+
+        if (!endpoint) {
+          if (errorEl) {
+            errorEl.hidden = false;
+            errorEl.textContent = "தொடர்பு சேவை இப்போது கிடைக்கவில்லை.";
+          }
+          return;
+        }
+
+        if (successEl) successEl.hidden = true;
+        if (errorEl) { errorEl.hidden = true; errorEl.textContent = ""; }
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "அனுப்புகிறது…";
+        }
+
+        const fd = new FormData(form);
+        const payload = {
+          name: String(fd.get("name") || "").trim(),
+          email: String(fd.get("email") || "").trim(),
+          subject: String(fd.get("subject") || "").trim(),
+          message: String(fd.get("message") || "").trim(),
+          company: String(fd.get("company") || "").trim()
+        };
+
+        try {
+          const res = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify(payload)
+          });
+          let data = null;
+          try { data = await res.json(); } catch (_) { /* ignore */ }
+          if (!res.ok || !data?.ok) {
+            throw new Error(data?.message || "Send failed");
           }
           form.reset();
-          if (success) { success.hidden = false; success.scrollIntoView({ behavior: "smooth", block: "center" }); }
+          if (successEl) {
+            successEl.hidden = false;
+            successEl.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        } catch (err) {
+          if (errorEl) {
+            errorEl.hidden = false;
+            errorEl.textContent = "அனுப்ப முடியவில்லை. சிறிது நேரம் கழித்து மீண்டும் முயலவும்.";
+            errorEl.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = prevLabel || "அனுப்பு";
+          }
         }
       });
       // live-clear errors

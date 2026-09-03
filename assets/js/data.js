@@ -55,20 +55,27 @@ const appConfig = {
   size:            "[அளவு எ.கா. 18 MB]",
   minAndroid:      "[Android பதிப்பு எ.கா. 7.0+]",
   developer:       "[டெவலப்பர் பெயர்]",
-  playStoreUrl:    "#",       /* Replace with real Google Play URL */
+  playStoreUrl:    "",         /* Add Google Play URL when available */
   apkUrl:          "",         /* Optional direct APK, only if officially offered */
-  supportEmail:    "[support@konguvettuvagounder.com]",
+  supportEmail:    "contact@konguvettuvagounder.com",
   qrImage:         "assets/images/app/qr-placeholder.svg"
 };
 
 /* ---------- Contact config ---------- */
+function resolveWebsiteContactEndpoint() {
+  try {
+    const h = typeof location !== "undefined" ? location.hostname : "";
+    if (!h || h === "localhost" || h === "127.0.0.1") {
+      return "http://localhost:4000/api/website/contact";
+    }
+  } catch (_) { /* ignore */ }
+  return "https://www.infosensetechnologies.com/digitalhouse/backend/api/website/contact";
+}
+
 const contactConfig = {
-  addressTa:  "[அலுவலக முகவரி — வரி 1, வரி 2, மாவட்டம், தமிழ்நாடு]",
-  phone:      "[+91 XXXXXXXXXX]",
-  email:      "[info@konguvettuvagounder.com]",
-  whatsapp:   "#",
+  email:      "contact@konguvettuvagounder.com",
   hoursTa:    "திங்கள் – சனி, காலை 10:00 – மாலை 6:00",
-  formEndpoint: ""  /* Leave blank in prototype; add your endpoint later */
+  formEndpoint: resolveWebsiteContactEndpoint()
 };
 
 /* Expose (for clarity in browser console / future modules) */

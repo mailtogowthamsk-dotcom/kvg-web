@@ -75,7 +75,6 @@
   .footer-top { grid-template-columns: 1fr; gap: 26px; }
   .footer-bottom { flex-direction: column; }
   .topbar .container { justify-content: center; }
-  .topbar .topbar__left { display: none; }
 }
 
 /* ---- Phones ---- */
