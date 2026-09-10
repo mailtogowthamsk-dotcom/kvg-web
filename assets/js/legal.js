@@ -26,7 +26,7 @@
         return "http://localhost:4000/api/legal";
       }
     } catch (_) { /* ignore */ }
-    return "https://konguvettuvagounder.com/digitalhouse/backend/api/legal";
+    return "https://konguvettuvagounder.com/api/legal";
   }
 
   function decodeAttr(value) {

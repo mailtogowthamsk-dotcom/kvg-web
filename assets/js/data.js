@@ -69,7 +69,7 @@ function resolveWebsiteContactEndpoint() {
       return "http://localhost:4000/api/website/contact";
     }
   } catch (_) { /* ignore */ }
-  return "https://konguvettuvagounder.com/digitalhouse/backend/api/website/contact";
+  return "https://konguvettuvagounder.com/api/website/contact";
 }
 
 /** Same public legal API the mobile app uses (published documents only). */
@@ -80,7 +80,7 @@ function resolveLegalApiBase() {
       return "http://localhost:4000/api/legal";
     }
   } catch (_) { /* ignore */ }
-  return "https://konguvettuvagounder.com/digitalhouse/backend/api/legal";
+  return "https://konguvettuvagounder.com/api/legal";
 }
 
 const contactConfig = {
