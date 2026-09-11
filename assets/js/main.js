@@ -363,14 +363,73 @@
   function renderAppScreens() {
     const track = $("#appCarousel");
     if (!track || !D.appScreens) return;
-    track.innerHTML = D.appScreens.map((s, i) => `
-      <div class="phone-mock" style="scroll-snap-align:center;flex:none;">
-        <img src="${esc(s)}" alt="செயலி திரை ${i + 1}" loading="lazy">
+    const screens = D.appScreens;
+    track.innerHTML = screens.map((s, i) => `
+      <div class="phone-mock" data-index="${i}">
+        <img src="${esc(s)}" alt="செயலி திரை ${i + 1}" loading="${i === 0 ? "eager" : "lazy"}">
       </div>`).join("");
-    const prev = $("#appPrev"), next = $("#appNext");
-    const step = () => track.querySelector(".phone-mock")?.offsetWidth + 20 || 280;
-    prev?.addEventListener("click", () => track.scrollBy({ left: -step(), behavior: "smooth" }));
-    next?.addEventListener("click", () => track.scrollBy({ left: step(), behavior: "smooth" }));
+
+    const prev = $("#appPrev");
+    const next = $("#appNext");
+    const dotsWrap = $("#appDots");
+    let index = 0;
+
+    const slides = () => [...track.querySelectorAll(".phone-mock")];
+    const step = () => {
+      const el = slides()[0];
+      if (!el) return 280;
+      const gap = parseFloat(getComputedStyle(track).gap) || 18;
+      return el.offsetWidth + gap;
+    };
+
+    if (dotsWrap) {
+      dotsWrap.innerHTML = screens.map((_, i) => `
+        <button type="button" class="app-showcase__dot${i === 0 ? " is-active" : ""}"
+          role="tab" aria-label="திரை ${i + 1}" aria-selected="${i === 0}" data-index="${i}"></button>`).join("");
+    }
+
+    const goTo = (i, smooth = true) => {
+      const max = screens.length - 1;
+      index = Math.max(0, Math.min(max, i));
+      track.scrollTo({ left: index * step(), behavior: smooth ? "smooth" : "auto" });
+      syncUI();
+    };
+
+    const syncUI = () => {
+      if (prev) prev.disabled = index <= 0;
+      if (next) next.disabled = index >= screens.length - 1;
+      dotsWrap?.querySelectorAll(".app-showcase__dot").forEach((dot, i) => {
+        const on = i === index;
+        dot.classList.toggle("is-active", on);
+        dot.setAttribute("aria-selected", on ? "true" : "false");
+      });
+    };
+
+    const syncFromScroll = () => {
+      const i = Math.round(track.scrollLeft / step());
+      if (i !== index && i >= 0 && i < screens.length) {
+        index = i;
+        syncUI();
+      }
+    };
+
+    prev?.addEventListener("click", () => goTo(index - 1));
+    next?.addEventListener("click", () => goTo(index + 1));
+    dotsWrap?.addEventListener("click", (e) => {
+      const btn = e.target.closest(".app-showcase__dot");
+      if (!btn) return;
+      goTo(Number(btn.dataset.index));
+    });
+    track.addEventListener("scroll", () => {
+      window.clearTimeout(track._snapT);
+      track._snapT = window.setTimeout(syncFromScroll, 60);
+    }, { passive: true });
+    track.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") { e.preventDefault(); goTo(index - 1); }
+      if (e.key === "ArrowRight") { e.preventDefault(); goTo(index + 1); }
+    });
+
+    syncUI();
   }
 
   function renderAppConfig() {

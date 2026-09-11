@@ -241,14 +241,13 @@ textarea:focus-visible,
 }
 .brand { display: flex; align-items: center; gap: 12px; margin-right: auto; flex: none; }
 .brand__logo {
-  width: 48px; height: 48px; border-radius: 50%;
+  width: 58px; height: 58px;
   object-fit: contain;
-  background: #fff;
-  border: 2px solid var(--gold);   /* red ring around the green/white emblem */
   flex: none;
-  /* text fallback (if the <img> is ever swapped back to a monogram span) */
-  display: grid; place-items: center;
-  color: var(--maroon); font-family: var(--font-head); font-weight: 700; font-size: 1.2rem;
+  display: block;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
 }
 .brand__text { max-width: 195px; }   /* keep the long name to a compact 2 lines */
 .brand__text strong {
@@ -373,18 +372,42 @@ textarea:focus-visible,
 }
 .hero__inner {
   position: relative;
-  padding: 96px 0 104px;
-  max-width: 760px;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(220px, 0.7fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 56px);
+  padding: 88px 0 96px;
+}
+.hero__content {
+  min-width: 0;
+  max-width: 640px;
 }
 .hero h1 {
   color: #fff;
-  font-size: clamp(1.9rem, 5vw, 3.2rem);
+  font-size: clamp(1.9rem, 4.4vw, 3rem);
   line-height: 1.25;
   margin-bottom: .5em;
   text-shadow: 0 2px 14px rgba(0,0,0,.3);
 }
-.hero p { font-size: clamp(1rem, 2vw, 1.2rem); color: #f1e5d0; max-width: 620px; }
+.hero p {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: #f1e5d0;
+  max-width: 540px;
+}
 .hero__cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+.hero__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: end;
+}
+.hero__logo img {
+  width: min(460px, 100%);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 28px rgba(0,0,0,.35));
+}
 
 /* temple-arch top motif */
 .arch-motif {
@@ -424,25 +447,125 @@ textarea:focus-visible,
 
 /* ---------- 11. App / mockup section ---------- */
 .app-band {
-  background: linear-gradient(120deg, var(--green-dark), var(--green));
+  background:
+    radial-gradient(ellipse 60% 50% at 85% 45%, rgba(255,255,255,.07), transparent 55%),
+    linear-gradient(135deg, var(--green-dark) 0%, var(--green) 55%, #0a6b2e 100%);
   color: #eef7f0;
 }
 .app-band h2, .app-band h3 { color: var(--cream); }
+
+/* Screenshot carousel */
+.app-showcase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  max-width: 360px;
+  margin-inline: auto;
+}
+.app-showcase__stage {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.app-showcase__track {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  width: 100%;
+  max-width: 272px;
+  padding: 18px 6px 28px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.app-showcase__track::-webkit-scrollbar { display: none; }
+.app-showcase__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-58%);
+  z-index: 3;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,.45);
+  background: rgba(7, 40, 20, .72);
+  color: #fff;
+  font-size: 1.45rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 22px rgba(0,0,0,.28);
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+}
+.app-showcase__nav:hover {
+  background: #fff;
+  color: var(--green-dark);
+  border-color: #fff;
+  transform: translateY(-58%) scale(1.05);
+}
+.app-showcase__nav:disabled {
+  opacity: .35;
+  pointer-events: none;
+}
+.app-showcase__nav--prev { left: -6px; }
+.app-showcase__nav--next { right: -6px; }
+.app-showcase__dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  min-height: 12px;
+}
+.app-showcase__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: 0;
+  padding: 0;
+  background: rgba(255,255,255,.35);
+  cursor: pointer;
+  transition: width var(--transition), background var(--transition);
+}
+.app-showcase__dot.is-active {
+  width: 22px;
+  background: var(--cream);
+}
+.app-showcase__dot:focus-visible {
+  outline: 2px solid var(--cream);
+  outline-offset: 2px;
+}
+
 .phone-mock {
-  width: 260px; max-width: 100%;
-  aspect-ratio: 9 / 19;
-  border-radius: 34px;
-  border: 10px solid #1b1b1b;
-  background: #000;
-  box-shadow: var(--shadow-lg);
+  width: 248px;
+  max-width: 100%;
+  flex: none;
+  aspect-ratio: 9 / 19.5;
+  border-radius: 32px;
+  border: 9px solid #141414;
+  background: #0a0a0a;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.08),
+    0 22px 50px rgba(0,0,0,.38),
+    0 8px 18px rgba(0,0,0,.2);
   overflow: hidden;
   position: relative;
-  margin: 0 auto;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
 }
-.phone-mock img { width: 100%; height: 100%; object-fit: cover; }
-.phone-mock::before {
-  content: ""; position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
-  width: 80px; height: 6px; background: #333; border-radius: 999px; z-index: 2;
+.phone-mock img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Screenshots already include status bar — no fake notch overlay */
 }
 .store-badge {
   display: inline-flex; align-items: center; gap: 10px;
@@ -561,7 +684,7 @@ textarea:focus-visible,
 .site-footer a:hover { color: var(--gold); }
 .footer-top { padding: 56px 0 36px; display: grid; grid-template-columns: minmax(0,1.6fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr); gap: 34px; }
 .footer-col { min-width: 0; }
-.footer-brand .brand__logo { background: var(--gold); color: var(--maroon); }
+.footer-brand .brand__logo { background: transparent; }
 .footer-col h4 { color: #fff; font-size: 1rem; margin-bottom: 14px; }
 .footer-col ul { list-style: none; margin: 0; padding: 0; }
 .footer-col li { margin-bottom: 8px; }

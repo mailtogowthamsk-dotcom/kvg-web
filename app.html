@@ -11,7 +11,7 @@
   <meta property="og:description" content="எங்கள் புதிய Android சமூக செயலி — வசதிகள், பாதுகாப்பு மற்றும் பதிவிறக்கம்.">
   <meta property="og:image" content="assets/images/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="assets/images/favicon.png" type="image/png">
+  <link rel="icon" href="assets/images/favicon.png?v=2" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700&family=Noto+Serif+Tamil:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@
     </div>
     <nav class="container navbar" aria-label="முதன்மை வழிசெலுத்தல்">
       <a class="brand" href="index.html">
-        <img class="brand__logo" src="assets/images/logo.png" alt="" aria-hidden="true" width="48" height="48">
+        <img class="brand__logo" src="assets/images/app/logo_digital_house.png" alt="" aria-hidden="true" width="48" height="48">
         <span class="brand__text"><strong>கொங்கு வேட்டுவ கவுண்டர்</strong><span>சமூக இணையதளம்</span></span>
       </a>
       <div class="nav-menu" id="nav-menu">
@@ -82,10 +82,13 @@
             </div>
             <p class="small" style="opacity:.85">நேரடி APK பதிவிறக்கம் அதிகாரப்பூர்வமாக வழங்கப்பட்டால் மட்டுமே இங்கே இணைக்கவும்.</p>
           </div>
-          <div class="reveal" style="display:flex;align-items:center;justify-content:center;gap:14px;">
-            <button id="appPrev" class="btn btn-ghost btn-sm" aria-label="முந்தைய திரை">‹</button>
-            <div id="appCarousel" style="display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;max-width:320px;padding:6px;"></div>
-            <button id="appNext" class="btn btn-ghost btn-sm" aria-label="அடுத்த திரை">›</button>
+          <div class="app-showcase reveal">
+            <div class="app-showcase__stage">
+              <button id="appPrev" class="app-showcase__nav app-showcase__nav--prev" type="button" aria-label="முந்தைய திரை">‹</button>
+              <div id="appCarousel" class="app-showcase__track" tabindex="0" aria-label="செயலி திரைகள்"></div>
+              <button id="appNext" class="app-showcase__nav app-showcase__nav--next" type="button" aria-label="அடுத்த திரை">›</button>
+            </div>
+            <div id="appDots" class="app-showcase__dots" role="tablist" aria-label="திரை தேர்வு"></div>
           </div>
         </div>
       </div>
@@ -93,8 +96,7 @@
 
     <section class="section">
       <div class="container">
-        <div class="sec-head reveal"><span class="eyebrow">வசதிகள்</span><h2>செயலியின் வசதிகள்</h2>
-          
+        <div class="sec-head reveal"><span class="eyebrow">வசதிகள்</span><h2>செயலியின் வசதிகள்</h2></div>
         <div class="grid grid-3" id="appFeaturesGrid"></div>
       </div>
     </section>

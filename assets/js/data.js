@@ -33,11 +33,14 @@ const appFeatures = [
   { icon: "🔒", titleTa: "தனியுரிமைக் கட்டுப்பாடு", descTa: "உங்கள் தகவலைப் பகிர்வது குறித்த முழுக் கட்டுப்பாடு." }
 ];
 
-/* ---------- App screenshots (placeholders) ---------- */
+/* ---------- App screenshots ---------- */
 const appScreens = [
-  "assets/images/app/screen-1.svg",
-  "assets/images/app/screen-2.svg",
-  "assets/images/app/screen-3.svg"
+  "assets/images/app/screen-1.jpg", /* Welcome */
+  "assets/images/app/screen-2.jpg", /* Login */
+  "assets/images/app/screen-3.jpg", /* Home feed */
+  "assets/images/app/screen-4.jpg", /* Menu / Explore */
+  "assets/images/app/screen-5.jpg", /* Messages */
+  "assets/images/app/screen-6.jpg"  /* Profile */
 ];
 
 /* ---------- Testimonials (SAMPLE CONTENT — clearly labelled) ---------- */
