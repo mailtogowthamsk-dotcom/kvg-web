@@ -365,22 +365,18 @@
     if (!track || !D.appScreens) return;
     const screens = D.appScreens;
     track.innerHTML = screens.map((s, i) => `
-      <div class="phone-mock" data-index="${i}">
+      <div class="phone-mock__slide" data-index="${i}">
         <img src="${esc(s)}" alt="செயலி திரை ${i + 1}" loading="${i === 0 ? "eager" : "lazy"}">
       </div>`).join("");
 
     const prev = $("#appPrev");
     const next = $("#appNext");
     const dotsWrap = $("#appDots");
+    const screen = track.closest(".phone-mock__screen");
     let index = 0;
-
-    const slides = () => [...track.querySelectorAll(".phone-mock")];
-    const step = () => {
-      const el = slides()[0];
-      if (!el) return 280;
-      const gap = parseFloat(getComputedStyle(track).gap) || 18;
-      return el.offsetWidth + gap;
-    };
+    let startX = 0;
+    let deltaX = 0;
+    let dragging = false;
 
     if (dotsWrap) {
       dotsWrap.innerHTML = screens.map((_, i) => `
@@ -388,10 +384,10 @@
           role="tab" aria-label="திரை ${i + 1}" aria-selected="${i === 0}" data-index="${i}"></button>`).join("");
     }
 
-    const goTo = (i, smooth = true) => {
+    const goTo = (i) => {
       const max = screens.length - 1;
       index = Math.max(0, Math.min(max, i));
-      track.scrollTo({ left: index * step(), behavior: smooth ? "smooth" : "auto" });
+      track.style.transform = `translateX(-${index * 100}%)`;
       syncUI();
     };
 
@@ -405,14 +401,6 @@
       });
     };
 
-    const syncFromScroll = () => {
-      const i = Math.round(track.scrollLeft / step());
-      if (i !== index && i >= 0 && i < screens.length) {
-        index = i;
-        syncUI();
-      }
-    };
-
     prev?.addEventListener("click", () => goTo(index - 1));
     next?.addEventListener("click", () => goTo(index + 1));
     dotsWrap?.addEventListener("click", (e) => {
@@ -420,16 +408,45 @@
       if (!btn) return;
       goTo(Number(btn.dataset.index));
     });
-    track.addEventListener("scroll", () => {
-      window.clearTimeout(track._snapT);
-      track._snapT = window.setTimeout(syncFromScroll, 60);
-    }, { passive: true });
     track.addEventListener("keydown", (e) => {
       if (e.key === "ArrowLeft") { e.preventDefault(); goTo(index - 1); }
       if (e.key === "ArrowRight") { e.preventDefault(); goTo(index + 1); }
     });
 
-    syncUI();
+    /* Touch / drag swipe — only the screen content moves */
+    const onStart = (x) => {
+      dragging = true;
+      startX = x;
+      deltaX = 0;
+      track.style.transition = "none";
+    };
+    const onMove = (x) => {
+      if (!dragging) return;
+      deltaX = x - startX;
+      const pct = (deltaX / track.clientWidth) * 100;
+      track.style.transform = `translateX(calc(-${index * 100}% + ${pct}%))`;
+    };
+    const onEnd = () => {
+      if (!dragging) return;
+      dragging = false;
+      track.style.transition = "";
+      const threshold = track.clientWidth * 0.18;
+      if (deltaX < -threshold) goTo(index + 1);
+      else if (deltaX > threshold) goTo(index - 1);
+      else goTo(index);
+    };
+
+    const surface = screen || track;
+    surface.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      surface.setPointerCapture?.(e.pointerId);
+      onStart(e.clientX);
+    });
+    surface.addEventListener("pointermove", (e) => onMove(e.clientX));
+    surface.addEventListener("pointerup", onEnd);
+    surface.addEventListener("pointercancel", onEnd);
+
+    goTo(0);
   }
 
   function renderAppConfig() {

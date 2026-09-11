@@ -92,11 +92,16 @@
   .footer-bottom { flex-direction: column; }
   .topbar .container { justify-content: center; }
   .app-showcase { max-width: 300px; }
-  .app-showcase__track { max-width: 236px; padding-bottom: 22px; }
-  .phone-mock { width: 220px; border-width: 8px; border-radius: 28px; }
-  .app-showcase__nav { width: 38px; height: 38px; font-size: 1.25rem; }
-  .app-showcase__nav--prev { left: -2px; }
-  .app-showcase__nav--next { right: -2px; }
+  .phone-mock {
+    width: 220px;
+    max-width: calc(100% - 64px);
+    border-radius: 38px;
+    --iphone-bezel: 9px;
+  }
+  .phone-mock__screen { border-radius: 30px; }
+  .phone-mock__island { width: 70px; height: 20px; top: 9px; }
+  .phone-mock__home { width: 78px; bottom: 7px; }
+  .app-showcase__nav { width: 36px; height: 36px; font-size: 1.2rem; }
 }
 
 /* ---- Phones ---- */

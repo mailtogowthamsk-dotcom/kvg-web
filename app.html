@@ -85,7 +85,13 @@
           <div class="app-showcase reveal">
             <div class="app-showcase__stage">
               <button id="appPrev" class="app-showcase__nav app-showcase__nav--prev" type="button" aria-label="முந்தைய திரை">‹</button>
-              <div id="appCarousel" class="app-showcase__track" tabindex="0" aria-label="செயலி திரைகள்"></div>
+              <div class="phone-mock" aria-hidden="false">
+                <div class="phone-mock__screen">
+                  <span class="phone-mock__island" aria-hidden="true"></span>
+                  <div id="appCarousel" class="phone-mock__track" tabindex="0" aria-label="செயலி திரைகள்"></div>
+                  <span class="phone-mock__home" aria-hidden="true"></span>
+                </div>
+              </div>
               <button id="appNext" class="app-showcase__nav app-showcase__nav--next" type="button" aria-label="அடுத்த திரை">›</button>
             </div>
             <div id="appDots" class="app-showcase__dots" role="tablist" aria-label="திரை தேர்வு"></div>
