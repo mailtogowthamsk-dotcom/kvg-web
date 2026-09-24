@@ -340,7 +340,9 @@
   function renderStats() {
     const wrap = $("#statsGrid");
     if (!wrap || !D.communityStats) return;
-    wrap.innerHTML = D.communityStats.map(s => `
+    wrap.innerHTML =
+      `<p class="demo-note" style="grid-column:1/-1;margin:0 0 12px">கீழே உள்ள எண்கள் <strong>மாதிரி / demo</strong> மதிப்புகள் — சமூகம் சரிபார்த்த புள்ளிவிவரங்கள் கிடைக்கும் வரை அதிகாரப்பூர்வ அளவீடுகளாகக் கருத வேண்டாம்.</p>` +
+      D.communityStats.map(s => `
       <div class="stat reveal">
         <div class="stat__num" data-count="${s.value}" data-suffix="${s.suffix}">0</div>
         <div class="stat__label">${esc(s.labelTa)}</div>

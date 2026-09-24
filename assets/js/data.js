@@ -52,12 +52,12 @@ const testimonials = [
 
 /* ---------- App / config placeholders (single source of truth) ---------- */
 const appConfig = {
-  appNameTa:       "[செயலி பெயர்]",
-  version:         "[பதிப்பு எ.கா. 1.0.0]",
-  releaseDate:     "[வெளியீட்டு தேதி]",
-  size:            "[அளவு எ.கா. 18 MB]",
-  minAndroid:      "[Android பதிப்பு எ.கா. 7.0+]",
-  developer:       "[டெவலப்பர் பெயர்]",
+  appNameTa:       "Digital House",
+  version:         "",
+  releaseDate:     "",
+  size:            "",
+  minAndroid:      "Android 7.0+",
+  developer:       "Digital House",
   playStoreUrl:    "",         /* Add Google Play URL when available */
   apkUrl:          "",         /* Optional direct APK, only if officially offered */
   supportEmail:    "contact@konguvettuvagounder.com",
