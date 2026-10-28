@@ -58,10 +58,10 @@ const appConfig = {
   size:            "",
   minAndroid:      "Android 7.0+",
   developer:       "Digital House",
-  playStoreUrl:    "",         /* Add Google Play URL when available */
+  playStoreUrl:    "https://play.google.com/store/apps/details?id=com.thisisgowtham.digitalhouse&pcampaignid=web_share",
   apkUrl:          "",         /* Optional direct APK, only if officially offered */
   supportEmail:    "contact@konguvettuvagounder.com",
-  qrImage:         "assets/images/app/qr-placeholder.svg"
+  qrImage:         "assets/images/app/play-store-qr.svg"
 };
 
 /* ---------- Contact config ---------- */

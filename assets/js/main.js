@@ -454,7 +454,16 @@
   function renderAppConfig() {
     const c = D.appConfig; if (!c) return;
     const name = $("#appName"); if (name && c.appNameTa) name.textContent = c.appNameTa;
-    const play = $("#playBtn"); if (play && c.playStoreUrl) play.href = c.playStoreUrl;
+    if (c.playStoreUrl) {
+      $$("[data-play-store]").forEach((el) => {
+        el.href = c.playStoreUrl;
+        el.target = "_blank";
+        el.rel = "noopener noreferrer";
+      });
+    }
+    if (c.qrImage) {
+      $$("[data-play-qr]").forEach((img) => { img.src = c.qrImage; });
+    }
   }
 
   function renderContactConfig() {
